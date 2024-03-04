@@ -1,7 +1,7 @@
 import pytest
 
-from classes import Category
-from classes import Product
+from src.classes import Category
+from src.classes import Product
 
 
 @pytest.fixture
@@ -13,6 +13,10 @@ def test_init_cat(category_fruits):
     assert category_fruits.name == 'фрукты'
     assert category_fruits.description == 'витамины круглый год'
     assert category_fruits.products == ('апельсины', 'киви', 'виноград')
+
+
+def test_products(product_fruits):
+    assert product_fruits
 
 
 @pytest.fixture
