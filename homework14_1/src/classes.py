@@ -14,6 +14,15 @@ class Category:
         Category.total_category += 1
         Category.total_unique_products += len(set(self.__products))
 
+    def __len__(self):
+        result = 0
+        for i in self.__products:
+            result += i.in_stok
+        return result
+
+    def __str__(self):
+        return f'{self.name}, количество продуктов: {len(self)} шт.'
+
     def add_product(self, product):
         """ Метод принимает на вход объект товара и добавляет его в список
      """
@@ -40,6 +49,12 @@ class Product:
         self.description = description
         self.price = price
         self.in_stock = in_stock
+
+    def __str__(self):
+        return f'{self.name}, {self.price} руб.Остаток: {self.in_stock} шт.'
+
+    def __add__(self, other):
+        return self.price * self.in_stock + other.price * other.in_stock
 
     @classmethod
     def new_product(cls, name, description, price, in_stock, list_products):
@@ -69,3 +84,21 @@ class Product:
                 self.price = new_price
         else:
             print('Введена некорректная цена')
+
+
+class ProductsCategory:
+    """Класс принимает на вход категорию для прохода по всем товарам категории"""
+    def __init_(self, cat):
+        self.cat = cat
+
+    def __iter__(self):
+        self. current_index = -1
+        return self
+
+    def __next__(self):
+        if self.current_index + 1 < len(self.cat.products):
+            self. current_index += 1
+            return self.cat.products(self. current_index).name
+        else:
+            raise StopIteration
+
