@@ -26,6 +26,8 @@ class Category:
     def add_product(self, product):
         """ Метод принимает на вход объект товара и добавляет его в список
      """
+        if not isinstance(product, Product):
+            raise TypeError("Добавлять можно только объекты Product или его наследников")
         return self.__products.append(product)
 
     @property
@@ -54,7 +56,10 @@ class Product:
         return f'{self.name}, {self.price} руб.Остаток: {self.in_stock} шт.'
 
     def __add__(self, other):
-        return self.price * self.in_stock + other.price * other.in_stock
+        if isinstance(other, type(self)):
+            return self.price * self.in_stock + other.price * other.in_stock
+        else:
+            raise TypeError
 
     @classmethod
     def new_product(cls, name, description, price, in_stock, list_products):
@@ -86,9 +91,35 @@ class Product:
             print('Введена некорректная цена')
 
 
+class Smartphone(Product):
+    efficiency: str  # производительность
+    model: str  # модель
+    amount_internal_memory: float  # объем встроенной памяти
+    color: str  # цвет
+
+    def __init__(self, name, description, price, in_stock, efficiency, model, amount_internal_memory, color):
+        super().__init__(name, description, price, in_stock)
+        self.efficiency = efficiency
+        self.model = model
+        self.amount_internal_memory = amount_internal_memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    country: str  # страна-производитель
+    germination_period: float  # срок прорастания
+    color: str  # цвет
+
+    def __init__(self, name, description, price, in_stock, country, germination_period, color):
+        super().__init__(name, description, price, in_stock)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
+
 class ProductsCategory:
     """Класс принимает на вход категорию для прохода по всем товарам категории"""
-    def __init_(self, cat):
+    def __init__(self, cat):
         self.cat = cat
 
     def __iter__(self):
@@ -101,4 +132,3 @@ class ProductsCategory:
             return self.cat.products(self. current_index).name
         else:
             raise StopIteration
-
