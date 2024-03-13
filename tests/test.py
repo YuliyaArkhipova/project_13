@@ -70,3 +70,13 @@ def test_init_lawngrass(product_lawn_grass):
     assert product_lawn_grass.country == 'Россия'
     assert product_lawn_grass.germination_period == '10 дней'
     assert product_lawn_grass.color == 'зеленый'
+
+
+def test_add_prod(product_smart):
+    assert product_smart.price * product_smart.in_stock + 50000.0 * 2 == 1000000
+
+
+def test_add_prod_raises(product_smart):
+    with pytest.raises(TypeError) as e_info:
+        product_smart.price * product_smart.in_stock + "1000000"
+
