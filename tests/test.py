@@ -1,9 +1,9 @@
 import pytest
 
-from src.classes import Category
-from src.classes import Product
-from src.classes import Smartphone
-from src.classes import LawnGrass
+from src.category import Category
+from src.product import Product
+from src.product import Smartphone
+from src.product import LawnGrass
 
 
 @pytest.fixture
