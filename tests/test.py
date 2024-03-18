@@ -80,3 +80,4 @@ def test_add_prod_raises(product_smart):
     with pytest.raises(TypeError) as e_info:
         product_smart.price * product_smart.in_stock + "1000000"
 
+
