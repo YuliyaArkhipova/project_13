@@ -6,18 +6,21 @@ class ProductAbc(ABC):
     def __init__(self):
         pass
 
+    @classmethod
+    @abstractmethod
+    def new_product(cls):
+        pass
+
 
 class MixinLog:
-    ID = 1
-
-    def __init__(self):
-        self.id = self.ID
-        MixinLog.ID += 1
-        super().__init__()
-        print(self.__repr__())
+    def __init__(self, *args):
+        print(repr(self))
 
     def __repr__(self):
-        return f'Создан {self.__class__}, {self.ID}, {self.__str__()}'
+        object_attributes = ''
+        for k, v in self.__dict__.items():
+            object_attributes += f'{k}: {v}'
+        return f"Создан объект со свойствами {object_attributes}"
 
 
 class Product(MixinLog, ProductAbc):
