@@ -31,13 +31,27 @@ class Category:
      """
         if not isinstance(product, Product):
             raise TypeError("Добавлять можно только объекты Product или его наследников")
+        if not product.in_stock > 0:
+            raise ValueError('Товар с нулевым количеством не может быть добавлен')
         return self.__products.append(product)
+
+    def average_price_products(self):
+        """Метод, который подсчитывает средний ценник всех товаров
+        """
+        total_price = 0
+        for i in self.__products:
+            total_price += i.price
+        try:
+            average_price = total_price/len(self.__products)
+            return average_price
+        except ZeroDivisionError:
+            return 0
 
     @property
     def products(self):
         """Выводит список товаров в формате:
-           Продукт, 80 руб. Остаток: 15 шт.
-        """
+               Продукт, 80 руб. Остаток: 15 шт.
+            """
         for i in self.__products:
             print(f"{i.name}, {i.price}. Остаток: {i.in_stok}")
         return None
