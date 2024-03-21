@@ -8,7 +8,7 @@ class ProductAbc(ABC):
 
     @classmethod
     @abstractmethod
-    def new_product(cls):
+    def new_product(cls, name, description, price, in_stock, list_products):
         pass
 
 
